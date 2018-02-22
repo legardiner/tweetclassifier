@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="../static/tweetclassifier.css">
+<link rel="stylesheet" type="text/css" href="../static/tweetclassifier.css" obama_prob=obama_prob>
 <html>
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+</head>
 <body>
-<h2 class="results">Presidential Tweet Classifier</h2 class="results">
-<p> Your tweet is more like {{ classification }} </p>
-</form>
+<h2>Presidential Tweet Classifier</h2>
+<div class="results">
+  <h3>Your tweet is more like {{ classification }}</h3>
+        <article class="skills">
+            <div class="t-6">
+                <p>{{ trump_prob }}% Trump<span></span><span class="skills" id="Trump"></span></p>
+            </div>
+            <div class="t-6">
+                <p>{{ obama_prob }}% Obama<span></span><span class="skills" id="Obama"></span></p>
+            </div>
+        </article>
+</main>
+</div>
 </body>
+<script type="text/javascript">
+  trump = document.getElementById('Trump')
+  trump.style.width = "{{ trump_prob }}%"
+  obama = document.getElementById('Obama')
+  obama.style.width = "{{ obama_prob }}%"
+  if ("{{ classification }}" == "Trump") {
+    $(document).ready(function() {
+      $('body').css('background-image', 'url("static/img/trump.jpg")');
+    });
+  }
+  else {
+    $(document).ready(function() {
+      $('body').css('background-image', 'url("static/img/obama.jpg")');
+    });
+  }
+</script>
 </html>
-

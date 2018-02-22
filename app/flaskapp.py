@@ -14,8 +14,8 @@ def my_form():
 @app.route("/", methods=['POST'])
 def my_form_post():
 	tweet = request.form['tweet']
-	classification = predict_model.classify_tweet(tweet)
-	return render_template('classifier_results.html', classification=classification)
+	obama_prob, trump_prob, classification = predict_model.classify_tweet(tweet)
+	return render_template('classifier_results.html', classification=classification, obama_prob=obama_prob, trump_prob=trump_prob)
 
 if __name__ == "__main__":
 	app.run(debug=True)

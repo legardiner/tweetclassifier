@@ -1,26 +1,123 @@
-body {
+body{
     background-image: url('img/trumpobama.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position-y: 60px;
 }
 
-.form-style{
+.skills {
+  animation-name: skills;
+}
+
+article.skills {
+  max-width: 400px;
+  height: auto;
+}
+article.skills p {
+  z-index: 2;
+  color: #fff;
+  padding: 10px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+article.skills div span:nth-child(1) {
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #fff;
+  height: 100%;
+  width: 100%;
+}
+article.skills div span:nth-child(2) {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #5E95E8;
+  height: 100%;
+}
+article.skills div:nth-child(1) span:nth-child(2) {
+  width: 90%;
+  animation-delay: 0;
+  background: #FF0000;
+}
+article.skills div:nth-child(2) span:nth-child(2) {
+  width: 100%;
+  animation-delay: 0.05s;
+  background: #0000FF;
+
+}
+section:before {
+  position: absolute;
+  bottom: -250px;
+  left: -350px;
+  width: 500px;
+  height: 500px;
+  content: '';
+  background: rgba(255, 0, 0, 0.25);
+  transform: rotate(55deg);
+}
+section:after {
+  position: absolute;
+  top: -250px;
+  right: -350px;
+  width: 500px;
+  height: 500px;
+  content: '';
+  background: rgba(0, 0, 255, 0.25);
+  transform: rotate(55deg);
+}
+.skills {
+  animation: skills 1.25s cubic-bezier(0.17, 0.67, 0, 1);
+}
+@keyframes skills {
+  0% {
+    left: -500px;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.form-style {
     max-width:400px;
-    margin:50px auto;
+    margin:150px auto;
     background:#fff;
     border-radius:2px;
     padding:20px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.results {
+    max-width:400px;
+    margin:150px auto;
+    background:#fff;
+    border-radius:2px;
+    padding:20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.results h3{
+    text-align: center;
+    font-weight: 700;
+}
+
 h2{
-    background: #4D4D4D;
+    background: #444444;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed', sans-serif;
     color: #797979;
     font-size: 18px;
-    font-weight: 75px;
+    font-weight: 75;
     padding: 30px;
     margin: -30px -30px 30px -30px;
 }
@@ -28,6 +125,7 @@ h2{
 h3{
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 16px;
+    color:#444444;
     text-align: center;
     font-weight: 100px;
 }
@@ -101,15 +199,13 @@ h3{
 }
 .form-style input[type="submit"],
 .form-style input[type="button"]{
-    background: #2471FF;
+    background: #444444;
     border: none;
     padding: 10px 20px 10px 20px;
-    border-bottom: 3px solid #5994FF;
-    border-radius: 3px;
-    color: #D2E2FF;
+    color: #FFFFFF;
 }
 .form-style input[type="submit"]:hover,
 .form-style input[type="button"]:hover{
-    background: #6B9FFF;
+    background: #787878;
     color:#fff;
 }
