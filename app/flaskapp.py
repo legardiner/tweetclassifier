@@ -18,4 +18,4 @@ def my_form_post():
 	return render_template('classifier_results.html', classification=classification, obama_prob=obama_prob, trump_prob=trump_prob)
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, host="0.0.0.0")
