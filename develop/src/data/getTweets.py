@@ -11,6 +11,15 @@ parser.add_argument('--output_path', default='../../data/interim', help='Path to
 
 
 def create_API_access():
+	"""This function creates twitter API access point.
+
+	Requirements: `CONSUMER_KEY`, `CONSUMER_SECRET`, `ACCESS_TOKEN`, and `ACCESS_SECRET` must be created at https://apps.twitter.com/
+	Credential should be stored in a `.env` file in your root directory.
+
+    Returns:
+        api: connection object for Twitter API
+
+    """
 	# Find .env automagically by walking up directories until it's found
 	dotenv_path = find_dotenv()
 
@@ -32,6 +41,17 @@ def create_API_access():
 	return api
 
 def clean_string(tweet):
+	"""This function takes the text from a tweet and clean its according to GloVe's twitter word embeddings preprocessing.
+	The ruby script can be found here: https://nlp.stanford.edu/projects/glove/.
+
+	The cleaning includes converting hashtags, usernames, and emojis into readable tokens and removing repitions, urls, commas, and apostrophes
+
+	Args:
+		tweet (str): Text string of a user's tweet
+
+	Returns:
+		Cleaned tweet text string
+	"""
 	# Remove new lines
 	tweet = re.sub("\n", " ", tweet)
 	# Replace urls with token
@@ -67,9 +87,15 @@ def clean_string(tweet):
 	return clean_tweet
 
 def get_user_tweets(api, screen_name, output_path):
-	"""
+	"""This function pulls tweet text for a specified username, cleans them with `clean_string`, and outputs to a `.csv`
+
 	Twitter's API only allows you to pull a limited number of tweets at a time.
 	Script pulls 200 tweets at a time working backwards in the timeline until the 3400 tweet limit is hit
+
+	Args:
+		api (connection object): Connection object for the Twitter API that is returned from `create_API_access`
+		screen_name (str): User handle for Twitter user that you want tweets for
+		output_path (str): The path to the output directory to store the `.csv` of tweets
 	"""
 
 	# Create empty list for tweet objects
@@ -90,6 +116,7 @@ def get_user_tweets(api, screen_name, output_path):
     # Write all text of tweets to a file
 	filename = screen_name + '.csv'   
 	file = open(join(output_path, filename), 'w') 
+	# Iterates through all tweets and cleans them before outputting
 	for tweet in tweets:
 		text = clean_string(tweet.text)
 		line = screen_name + ', "' + text + '"\n'
