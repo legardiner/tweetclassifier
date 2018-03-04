@@ -3,4 +3,9 @@ develop/data/processed/allTweets.csv: develop/src/data/makeDataset.py develop/sr
 
 tweets: develop/data/processed/allTweets.csv
 
-all: tweets
+develop/models/model.pkl: develop/src/models/trainModel.py
+	python develop/src/models/trainModel.py
+
+model: develop/models/model.pkl
+
+all: tweets model

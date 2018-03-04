@@ -1,10 +1,14 @@
 import argparse
 import pandas as pd
-import getTweets
 import os
 from os.path import join
 from gensim.scripts.glove2word2vec import glove2word2vec
 from gensim.models import KeyedVectors
+import numpy as np
+import os, sys
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.append('../../..')
+from develop.src.data import getTweets
 
 parser = argparse.ArgumentParser(description='Make dataset for tweet classifier')
 parser.add_argument('--input_path', default='./develop/data/interim', help='Path to directory to read in tweets')
@@ -51,7 +55,7 @@ def calculate_vector(tweet, word_embeddings):
             else:
                 counter -= 1
     avg_tweet_vec = (tweet_vec / counter)
-    return avg_tweet_vec
+    return np.array(avg_tweet_vec)
 
 def create_df(input_path, output_path, word_embeddings):
 	"""This function reads all outputed `.csv` from the interim data directory and combines them into a single data frame
