@@ -19,9 +19,18 @@ parser.add_argument('--glove_vectors_path', default='./develop/data/external/glo
 parser.add_argument('--glove_word2vec_path', default='./develop/data/external/word2vec.txt', help='Path to directory containing glove vectors')
 
 def load_vectors(glove_vectors_path, glove_word2vec_path):
-    glove2word2vec(glove_vectors_path, glove_word2vec_path)
-    word_embeddings = KeyedVectors.load_word2vec_format(glove_word2vec_path, binary=False)
-    return word_embeddings
+	"""This function take the path to GloVe vectors, modifies their format to work with gensim and loads the gensim model.
+
+    Args:
+        glove_vectors_path (str): Path to the data directory where the glove vectors are stored
+        glove_word2vec_path (str): Path to store the glove vectors once they've been transformed to the word2vec load_word2vec_format
+
+    Returns:
+        Loaded GloVe vector gensim model
+    """
+	glove2word2vec(glove_vectors_path, glove_word2vec_path)
+	word_embeddings = KeyedVectors.load_word2vec_format(glove_word2vec_path, binary=False)
+	return word_embeddings
 
 def calculate_vector(tweet, word_embeddings):
     """This function utilizes GloVe pretrained Twitter word vectors to calculate an averaged sentence embeding for each tweet.
@@ -31,8 +40,7 @@ def calculate_vector(tweet, word_embeddings):
 
     Args:
         tweet (str): Cleaned text string of a user's tweet
-        glove_vectors_path (str): Path to the data directory where the glove vectors are stored
-        glove_word2vec_path (str): Path to store the glove vectors once they've been transformed to the word2vec load_word2vec_format
+        word_embeddings (KeyedVectors): Loaded GloVe vector gensim model
 
     Returns:
         A tweet embedding that consists of an average of the word embeddings that make up the sentences
@@ -82,7 +90,6 @@ def main():
 	user2 = args.user2
 	glove_vectors_path = args.glove_vectors_path
 	glove_word2vec_path = args.glove_word2vec_path
-
 
 	getTweets.main(user1, input_path)
 	getTweets.main(user2, input_path)
