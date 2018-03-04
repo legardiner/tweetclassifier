@@ -4,7 +4,9 @@ awsebcli==3.12.3
 bcrypt==3.1.4
 blessed==1.14.2
 boto==2.48.0
-botocore==1.9.1
+boto3==1.6.3
+botocore==1.9.3
+bz2file==0.98
 cement==2.8.2
 certifi==2018.1.18
 cffi==1.11.4
@@ -17,6 +19,7 @@ docopt==0.6.2
 docutils==0.14
 Fabric==1.14.0
 Flask==0.12.2
+gensim==3.4.0
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.10
@@ -39,8 +42,10 @@ requests==2.9.1
 requests-oauthlib==0.8.0
 rsa==3.4.2
 s3transfer==0.1.13
+scipy==1.0.0
 semantic-version==2.5.0
 six==1.11.0
+smart-open==1.5.6
 tabulate==0.7.5
 termcolor==1.1.0
 tweepy==3.5.0

@@ -55,11 +55,11 @@ def clean_string(tweet):
 	# Remove new lines
 	tweet = re.sub("\n", " ", tweet)
 	# Replace urls with token
-	tweet = re.sub("https?:\/\/\S+\b|www\.(\w+\.)+\S*","<url>", tweet)
+	tweet = re.sub("https?:\/\/\S+|www\.(\w+\.)+\S*","<url>", tweet)
 	# Split words with slashes
 	tweet = re.sub("/"," / ", tweet)
 	# Remove apostrophes and commas
-	tweet = re.sub("[',]", "", tweet)
+	tweet = re.sub("['\"’,]", "", tweet)
 	# Replace user handles with token
 	tweet = re.sub("@\w+", "<user>", tweet)
 	# Replace smile with token
@@ -81,7 +81,7 @@ def clean_string(tweet):
 	# Replace elongated words with regular word and token
 	tweet = re.sub('\b(\S*?)(.)\2{2,}\b', r'\1\2 <elong>', tweet)
 	# Add padding around punctuation
-	tweet = re.sub('([^\w\s])', r' \1 ', tweet)
+	tweet = re.sub('([!?.%^&\(\)\[\]${}-])', r' \1 ', tweet)
 	# Remove casing
 	clean_tweet = tweet.lower()
 	return clean_tweet
@@ -116,10 +116,11 @@ def get_user_tweets(api, screen_name, output_path):
     # Write all text of tweets to a file
 	filename = screen_name + '.csv'   
 	file = open(join(output_path, filename), 'w') 
+
 	# Iterates through all tweets and cleans them before outputting
 	for tweet in tweets:
-		text = clean_string(tweet.text)
-		line = screen_name + ', "' + text + '"\n'
+		clean_tweet = clean_string(tweet.text)
+		line = screen_name + ', ' +  clean_tweet + '\n'
 		file.write(line)
 	print("Done")
 	file.close()
