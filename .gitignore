@@ -1,5 +1,6 @@
 *.csv
 .env
+*.pkl
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
