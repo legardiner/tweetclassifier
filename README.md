@@ -36,3 +36,13 @@ pip install -r requirements.txt
 Download pretrained word embeddings from [here]http://nlp.stanford.edu/data/glove.twitter.27B.zip
 Unzip and store in `/develop/data/external/`
 
+### Set up your `.evn` file
+
+Please create a `.env` file at your local directory and include the following your `CONSUMER_KEY` (Twitter), `CONSUMER_SECRET` (Twitter), ACCESS_TOKEN (Twitter), `ACCESS_SECRET`, and  `SQLALCHEMY_DATABASE_URI` (RDS Connection String)
+
+### Run code
+
+```
+make all
+python app/flaskapp.py
+```
