@@ -24,7 +24,6 @@ def create_API_access():
 
     Returns:
         api: connection object for Twitter API
-
     """
     logger = logging.getLogger(__name__)
     logger.info('Creating API connection')
@@ -55,7 +54,7 @@ def clean_string(tweet):
 
     It cleans it according to GloVe's twitter word embeddings
     preprocessing. The ruby script can be found here:
-        https://nlp.stanford.edu/projects/glove/.
+    https://nlp.stanford.edu/projects/glove/.
     The cleaning includes converting hashtags, usernames, and emojis into
     readable tokens and removing repitions, urls, commas, and apostrophes
 
@@ -110,8 +109,7 @@ def get_user_tweets(api, screen_name, output_path):
     the 3400 tweet limit is hit
 
     Args:
-        api (connection object): Connection object for the Twitter API that is
-                                 returned from `create_API_access`
+        api (connection object): Connection object for the Twitter API that is returned from `create_API_access`
         screen_name (str): Twitter user handle to pull tweets for
         output_path (str): Path to the directory to store the `.csv` of tweets
     """

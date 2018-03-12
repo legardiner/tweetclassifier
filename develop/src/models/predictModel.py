@@ -3,9 +3,9 @@ import pickle
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.append('../../..')
-from develop.src.data import getTweets
-from develop.src.data import makeDataset
+sys.path.append('../../../develop/src/data/')
+import getTweets
+import makeDataset
 
 
 def classify_tweet(tweet):

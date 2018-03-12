@@ -1,6 +1,11 @@
 *.csv
 .env
 *.pkl
+*.pyc
+develop/data/external/glove.twitter.27B/*
+TweetClassifier/*
+develop/data/external/*.txt
+config.py
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

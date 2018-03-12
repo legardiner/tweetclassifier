@@ -1,19 +1,15 @@
 Data preprocessing
 ===================
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
 .. automodule:: getTweets
    :members:
 .. automodule:: makeDataset
    :members:
 
+Model building
+===================
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. automodule:: trainModel
+   :members:
+.. automodule:: predictModel
+   :members:
