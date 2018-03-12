@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os
 import sys
 import pandas as pd
-from flask_sqlalchemy import SQLAlchemy
+from gensim.models import KeyedVectors
 from sqlalchemy import create_engine, MetaData, select
 from dotenv import load_dotenv, find_dotenv
 sys.path.insert(0, os.path.abspath('.'))
@@ -11,8 +11,10 @@ from develop.src.models import predictModel
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db = SQLAlchemy(app)
+glove_word2vec_path = './develop/data/external/word2vec.txt'
+# Load word embeddings
+word_embeddings = KeyedVectors.load_word2vec_format(glove_word2vec_path,
+                                                    binary=False)
 
 
 @app.route("/")
@@ -73,9 +75,10 @@ def my_form_post():
 
     # Return html page with results
     return render_template('classifier_results.html',
+                           user_tweet=user_tweet,
                            classification=classification,
-                           obama_prob=obama_prob,
-                           trump_prob=trump_prob)
+                           obama_prob=round(obama_prob, 2),
+                           trump_prob=round(trump_prob, 2))
 
 
 if __name__ == "__main__":

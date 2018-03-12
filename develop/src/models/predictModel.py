@@ -1,11 +1,13 @@
-from gensim.models import KeyedVectors
 import pickle
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.append('../../../develop/src/data/')
-import getTweets
-import makeDataset
+sys.path.append('../../../')
+from develop.src.data import getTweets
+from develop.src.data import makeDataset
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.append('../../../app/')
+import flaskapp
 
 
 def classify_tweet(tweet):
@@ -18,15 +20,13 @@ def classify_tweet(tweet):
         A classification for the tweet and its probability for the two classes.
     """
     model_path = './develop/models/model.pkl'
-    glove_word2vec_path = './develop/data/external/word2vec.txt'
 
     # Clean text string
     cleaned_tweet = getTweets.clean_string(tweet)
-    # Load word embeddings
-    word_embeddings = KeyedVectors.load_word2vec_format(glove_word2vec_path,
-                                                        binary=False)
+
     # Convert text string into vector representation
-    tweet_vector = makeDataset.calculate_vector(cleaned_tweet, word_embeddings)
+    tweet_vector = makeDataset.calculate_vector(cleaned_tweet,
+                                                flaskapp.word_embeddings)
     # Reshape array for single sample skleanr prediction
     tweet_vector = tweet_vector.reshape(1, -1)
 

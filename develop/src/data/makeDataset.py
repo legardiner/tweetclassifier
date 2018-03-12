@@ -8,8 +8,8 @@ import numpy as np
 import logging
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.append('../../../develop/src/data/')
-import getTweets
+sys.path.append('../../../')
+from develop.src.data import getTweets
 
 parser = argparse.ArgumentParser(description='Make tweet classifier dataset')
 parser.add_argument('--input_path',
