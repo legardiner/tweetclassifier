@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Data preprocessing &#8212; tweetclassifier 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to tweetclassifier’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-getTweets">
+<span id="data-preprocessing"></span><h1>Data preprocessing<a class="headerlink" href="#module-getTweets" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="getTweets.clean_string">
+<code class="descclassname">getTweets.</code><code class="descname">clean_string</code><span class="sig-paren">(</span><em>tweet</em><span class="sig-paren">)</span><a class="headerlink" href="#getTweets.clean_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes the text from a tweet and preproceses it.</p>
+<p>It cleans it according to GloVe&#8217;s twitter word embeddings
+preprocessing. The ruby script can be found here:
+<a class="reference external" href="https://nlp.stanford.edu/projects/glove/">https://nlp.stanford.edu/projects/glove/</a>.
+The cleaning includes converting hashtags, usernames, and emojis into
+readable tokens and removing repitions, urls, commas, and apostrophes</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><blockquote class="first">
+<div>tweet (str): Text string of a user&#8217;s tweet</div></blockquote>
+<dl class="last docutils">
+<dt>Returns:</dt>
+<dd>Cleaned tweet text string</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="getTweets.create_API_access">
+<code class="descclassname">getTweets.</code><code class="descname">create_API_access</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getTweets.create_API_access" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates a twitter API access point.</p>
+<p>Requirements: <cite>CONSUMER_KEY</cite>, <cite>CONSUMER_SECRET</cite>, <cite>ACCESS_TOKEN</cite>, and
+<cite>ACCESS_SECRET</cite> must be created at <a class="reference external" href="https://apps.twitter.com/">https://apps.twitter.com/</a>. Credentials
+should be stored in a <cite>.env</cite> file in your root directory.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>api: connection object for Twitter API</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="getTweets.get_user_tweets">
+<code class="descclassname">getTweets.</code><code class="descname">get_user_tweets</code><span class="sig-paren">(</span><em>api</em>, <em>screen_name</em>, <em>output_path</em><span class="sig-paren">)</span><a class="headerlink" href="#getTweets.get_user_tweets" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function pulls and cleans tweets for a specified username</p>
+<p>Twitter&#8217;s API only allows you to pull a limited number of tweets at a time.
+Script pulls 200 tweets at a time working backwards in the timeline until
+the 3400 tweet limit is hit</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>api (connection object): Connection object for the Twitter API that is returned from <cite>create_API_access</cite>
+screen_name (str): Twitter user handle to pull tweets for
+output_path (str): Path to the directory to store the <cite>.csv</cite> of tweets</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-makeDataset"></span><dl class="function">
+<dt id="makeDataset.calculate_vector">
+<code class="descclassname">makeDataset.</code><code class="descname">calculate_vector</code><span class="sig-paren">(</span><em>tweet</em>, <em>word_embeddings</em><span class="sig-paren">)</span><a class="headerlink" href="#makeDataset.calculate_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates a vector representation for a tweet string</p>
+<p>It utilizes GloVe pretrained Twitter word vectors to calculate an average
+sentence embeding for each tweet. Word embeddings are averaged and not
+summed to not give larger weight to sentences with more words.</p>
+<p>TO-DO: Further improvement on calculations by weighting with TF-IDF</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>tweet (str): Cleaned text string of a user&#8217;s tweet
+word_embeddings (KeyedVectors): Loaded GloVe vector gensim model</dd>
+<dt>Returns:</dt>
+<dd>A vector representation of a tweet</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="makeDataset.create_df">
+<code class="descclassname">makeDataset.</code><code class="descname">create_df</code><span class="sig-paren">(</span><em>input_path</em>, <em>output_path</em>, <em>word_embeddings</em><span class="sig-paren">)</span><a class="headerlink" href="#makeDataset.create_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function combines all tweet .csvs into a single data frame</p>
+<p>It reads all outputed <cite>.csv</cite> from the interim data directory</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>input_path (str): Path to input directory of tweet .csv for each user
+output_path (str): Path to the output directory to store combined .csv</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="makeDataset.load_vectors">
+<code class="descclassname">makeDataset.</code><code class="descname">load_vectors</code><span class="sig-paren">(</span><em>glove_vectors_path</em>, <em>glove_word2vec_path</em><span class="sig-paren">)</span><a class="headerlink" href="#makeDataset.load_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses path to GloVe vectors and loads them with gensim model.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>glove_vectors_path (str): Path to directory with GloVe vectors
+glove_word2vec_path (str): Path to store word2vec formatted vectors</dd>
+<dt>Returns:</dt>
+<dd>Loaded GloVe vector gensim model</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-trainModel">
+<span id="model-building"></span><h1>Model building<a class="headerlink" href="#module-trainModel" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="trainModel.load_data">
+<code class="descclassname">trainModel.</code><code class="descname">load_data</code><span class="sig-paren">(</span><em>input_path</em><span class="sig-paren">)</span><a class="headerlink" href="#trainModel.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function loads a .csv and returns the X and Y values for model input</p>
+<p>Before returning the model inputs, it converts the tweet vector string
+into a numpy array.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>input_path (str): Path to dataset</dd>
+<dt>Returns:</dt>
+<dd>X and Y values for model input</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="trainModel.train_model">
+<code class="descclassname">trainModel.</code><code class="descname">train_model</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>output_path</em><span class="sig-paren">)</span><a class="headerlink" href="#trainModel.train_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function trains the model and pickles the model for later user.</p>
+<p>Model development was done in a Jupyter notebook and chosen with
+cross-validation accuracy as the performance metric.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>y (Series): Series of labels of tweets
+X (Series): Series of vector representations of tweet text
+output_path (str): Path to store pickled model</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-predictModel"></span><dl class="function">
+<dt id="predictModel.classify_tweet">
+<code class="descclassname">predictModel.</code><code class="descname">classify_tweet</code><span class="sig-paren">(</span><em>tweet</em><span class="sig-paren">)</span><a class="headerlink" href="#predictModel.classify_tweet" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function predicts a tweet classification for a given text string.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>tweet (str): Tweet text string to classify</dd>
+<dt>Returns:</dt>
+<dd>A classification for the tweet and its probability for the two classes.</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data preprocessing</a></li>
+<li><a class="reference internal" href="#module-trainModel">Model building</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to tweetclassifier&#8217;s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/code.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lauren Gardiner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/code.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
