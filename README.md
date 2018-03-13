@@ -14,7 +14,7 @@ Boost web traffic by using Presidential tweets to create a timely and engaging T
 ### Success Criteria
 An accuracy of at least 85% to measure the performance of the text classifier and demonstrate the effectiveness of the web application.
 
-The Pivotal Tracker associated with the project can be viewed (here)[https://www.pivotaltracker.com/n/projects/2143919]
+The Pivotal Tracker associated with the project can be viewed [here](https://www.pivotaltracker.com/n/projects/2143919)
 
 ## Getting Started
 
