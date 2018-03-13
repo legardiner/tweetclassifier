@@ -42,9 +42,17 @@ Unzip and store in `/develop/data/external/`
 
 Please create a `.env` file at your local directory and include the following your `CONSUMER_KEY` (Twitter), `CONSUMER_SECRET` (Twitter), ACCESS_TOKEN (Twitter), `ACCESS_SECRET`, and  `SQLALCHEMY_DATABASE_URI` (RDS Connection String)
 
+### Run tests on code
+
+```
+cd develop/src/tests
+py.tests
+```
+
 ### Run code
 
 ```
+cd ../../..
 make all
 python app/flaskapp.py
 ```
