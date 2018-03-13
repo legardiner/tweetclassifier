@@ -14,6 +14,8 @@ Boost web traffic by using Presidential tweets to create a timely and engaging T
 ### Success Criteria
 An accuracy of at least 85% to measure the performance of the text classifier and demonstrate the effectiveness of the web application.
 
+The Pivotal Tracker associated with the project can be viewed (here)[https://www.pivotaltracker.com/n/projects/2143919]
+
 ## Getting Started
 
 ### Set Up Your Virtual Environment
@@ -46,3 +48,5 @@ Please create a `.env` file at your local directory and include the following yo
 make all
 python app/flaskapp.py
 ```
+
+You can then go to the IP address where the app is running and use the app.
