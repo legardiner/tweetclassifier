@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 ### Get GloVe vectors
 
-Download pretrained word embeddings from [here]http://nlp.stanford.edu/data/glove.twitter.27B.zip
+Download pretrained word embeddings from [here](http://nlp.stanford.edu/data/glove.twitter.27B.zip)
 Unzip and store in `/develop/data/external/`
 
 ### Set up your `.evn` file
