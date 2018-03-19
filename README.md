@@ -1,6 +1,10 @@
 # tweetclassifier
 Trump or Obama Tweet Classifier for Analytics Value Chain Course
 
+Vincent Wang, Product Manager
+Lauren Gardiner, Developer
+Rishabh Joshi, Quality Assurance
+
 ## Product Charter
 
 Boost web traffic by using Presidential Twitter data to create a timely and engaging Trump/Obama tweet classifier to increase blog popularity, number of subscribers, and ultimately advertising revenue.
