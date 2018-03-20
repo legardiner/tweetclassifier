@@ -50,7 +50,7 @@ Please create a `.env` file at your local directory and include the following yo
 
 ```
 cd develop/src/tests
-py.tests
+pytest
 ```
 
 ### Run code
